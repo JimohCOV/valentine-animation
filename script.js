@@ -57,18 +57,29 @@ function getBouquetMiddle() {
   const y = you.getBoundingClientRect();
   const h = her.getBoundingClientRect();
 
+  const isMobile = window.innerWidth <= 520;
+
+  if (isMobile) {
+    // middle of the GAP between them (best for phones)
+    const gapCenterX = (y.right + h.left) / 2;
+
+    // place bouquet around upper torso height (not head)
+    const torsoY = Math.min(y.bottom, h.bottom) - Math.min(y.height, h.height) * 0.45;
+
+    return {
+      x: gapCenterX,     // no left shift on mobile
+      y: torsoY
+    };
+  }
+
+  // desktop/tablet fallback (your old logic, slightly improved)
   const centerX = (y.left + y.width / 2 + h.left + h.width / 2) / 2;
 
-  // Use viewport height so it's stable on mobile
-  const isMobile = window.innerWidth <= 520;
-  const baseY = isMobile ? window.innerHeight * 0.68 : (y.top + y.height * 0.66);
-
   return {
-    x: centerX - 80,   // keep your left shift
-    y: baseY
+    x: centerX - 80,                 // your left shift for desktop
+    y: y.top + y.height * 0.66
   };
 }
-
 
 let idleYou, idleHer;
 let musicOn = false;
