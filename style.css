@@ -1,0 +1,248 @@
+:root{
+  --bg1:#ffdde1;
+  --bg2:#ee9ca7;
+  --white: rgba(255,255,255,.95);
+}
+
+*{ box-sizing:border-box; }
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background: linear-gradient(180deg, var(--bg1), var(--bg2));
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.scene{
+  position:relative;
+  width:100%;
+  height:100vh;
+  overflow:hidden;
+  transform-origin:center;
+}
+
+.vignette{
+  position:absolute;
+  inset:-40px;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,255,255,.10), rgba(0,0,0,.18));
+  z-index:1;
+}
+
+.petals{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:2;
+}
+
+.petal{
+  position:absolute;
+  top:-10%;
+  width: 14px;
+  height: 10px;
+  background: rgba(255,255,255,.55);
+  border-radius: 12px 12px 12px 0;
+  filter: blur(.2px);
+  opacity:.8;
+}
+
+/* Characters */
+.character{
+  position:absolute;
+  bottom:-10px;
+  width: clamp(220px, 28vw, 360px);
+  z-index:3;
+  will-change: transform;
+}
+
+/* IMPORTANT: remove CSS translateX offscreen.
+   We'll do offscreen with GSAP xPercent instead */
+.you{
+  left: 18vw;   /* adds breathing space */
+}
+
+.her{
+  right: 18vw;  /* adds breathing space */
+}
+
+.textWrap{
+  position:absolute;
+  top:5%;
+  width:100%;
+  text-align:center;
+  z-index:4;
+}
+
+.bouquet{
+  position:absolute;
+  width: clamp(140px, 16vw, 220px);
+  z-index:5;
+  opacity:0;
+  transform: translate(-50%, -50%) scale(.85);
+  pointer-events:none;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,.25));
+}
+
+.textWrap{
+  pointer-events:none;
+}
+
+.message{
+  margin:0;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(42px, 6vw, 72px);
+  color:#d90429; /* romantic red */
+  letter-spacing:1px;
+  text-shadow:
+    0 4px 12px rgba(0,0,0,.15),
+    0 0 20px rgba(255,80,100,.25);
+}
+
+.message .ch{
+  display:inline-block;
+  opacity:0;
+  transform: translateY(15px);
+}
+
+/* Glow bloom between them */
+.bloom{
+  position:absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255,120,150,.55), rgba(255,120,150,0) 60%);
+  filter: blur(4px);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.9);
+  pointer-events:none;
+  z-index:4;
+}
+
+/* Sparkles layer */
+.sparkles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:6;
+}
+
+.spark{
+  position:absolute;
+  font-size: 18px;
+  opacity:0;
+  transform: translate(-50%, -50%) scale(.6);
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.15));
+}
+
+/* Music toggle */
+.music{
+  position:absolute;
+  left:14px;
+  bottom:14px;
+  z-index:7;
+  border:0;
+  padding:10px 14px;
+  border-radius:999px;
+  background: rgba(255,255,255,.22);
+  color: rgba(255,255,255,.95);
+  backdrop-filter: blur(8px);
+  cursor:pointer;
+}
+.music:hover{ background: rgba(255,255,255,.30); }
+
+/* Tap to start overlay (mobile autoplay compliance) */
+.tapToStart{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+  font-size: clamp(22px, 4vw, 34px);
+  color: rgba(255,255,255,.95);
+  background: rgba(0,0,0,.18);
+  backdrop-filter: blur(6px);
+  text-shadow: 0 10px 30px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+.tapToStart.hidden{ display:none; }
+
+
+.sub{
+  margin: 14px 0 0;
+  font-size: clamp(15px, 2vw, 20px);
+  color: rgba(255,255,255,.92);
+  opacity:0;
+  text-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+/* Rose (simple SVG background) */
+.rose{
+  position:absolute;
+  width: 92px;
+  height: 92px;
+  z-index:5;
+  opacity:0;
+  transform: translate(-50%,-50%) scale(.95);
+  background: center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cdefs%3E%3CradialGradient id='r' cx='35%25' cy='30%25'%3E%3Cstop offset='0%25' stop-color='%23ff7aa2'/%3E%3Cstop offset='70%25' stop-color='%23d90429'/%3E%3Cstop offset='100%25' stop-color='%239b001f'/%3E%3C/radialGradient%3E%3CradialGradient id='p' cx='35%25' cy='30%25'%3E%3Cstop offset='0%25' stop-color='%23ffd6a5'/%3E%3Cstop offset='70%25' stop-color='%23ff9f1c'/%3E%3Cstop offset='100%25' stop-color='%23d97706'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M70 120c-16-10-28-26-28-46 0-17 10-31 26-38-5-3-8-8-8-14 0-10 8-18 18-18s18 8 18 18c0 6-3 11-8 14 16 7 26 21 26 38 0 20-12 36-28 46z' fill='%23f2c3b2'/%3E%3Cpath d='M46 60c0-10 8-18 18-18 7 0 13 4 16 10 3-6 9-10 16-10 10 0 18 8 18 18 0 9-6 16-14 18 9 2 16 10 16 20 0 12-10 22-22 22-7 0-13-3-17-8-4 5-10 8-17 8-12 0-22-10-22-22 0-10 7-18 16-20-8-2-14-9-14-18z' fill='%23fff' opacity='.06'/%3E%3Ccircle cx='54' cy='60' r='18' fill='url(%23r)'/%3E%3Ccircle cx='86' cy='60' r='18' fill='url(%23r)'/%3E%3Ccircle cx='70' cy='46' r='18' fill='url(%23p)'/%3E%3Cpath d='M70 78c-7 12-14 24-18 40' stroke='%232f9e44' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M70 78c7 12 14 24 18 40' stroke='%232f9e44' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M52 118c8 5 18 8 18 8s10-3 18-8' fill='none' stroke='%23b45309' stroke-width='8' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.replay{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  z-index:6;
+  border:0;
+  padding:10px 14px;
+  border-radius:999px;
+  background: rgba(255,255,255,.22);
+  color: rgba(255,255,255,.95);
+  backdrop-filter: blur(8px);
+  cursor:pointer;
+}
+.replay:hover{ background: rgba(255,255,255,.30); }
+
+/* ---------- MOBILE FIXES ---------- */
+@media (max-width: 520px) {
+
+  .textWrap{
+    top: 3%;
+    padding: 0 12px;
+  }
+
+  .message{
+    font-size: clamp(34px, 9vw, 52px);
+    line-height: 1.05;
+  }
+
+  .sub{
+    font-size: clamp(14px, 4.2vw, 18px);
+    margin-top: 10px;
+  }
+
+  .character{
+    width: clamp(180px, 46vw, 240px);
+    bottom: -6px;
+  }
+
+  /* bring them closer but leave room */
+  .you{ left: 10vw; }
+  .her{ right: 10vw; }
+
+  /* bouquet smaller on phones */
+  .bouquet{
+    width: clamp(110px, 28vw, 150px);
+  }
+
+  /* bloom smaller */
+  .bloom{
+    width: 300px;
+    height: 300px;
+  }
+
+  /* buttons not blocking visuals */
+  .replay{ bottom: 10px; right: 10px; padding: 9px 12px; }
+  .music{ bottom: 10px; left: 10px; padding: 9px 12px; }
+}

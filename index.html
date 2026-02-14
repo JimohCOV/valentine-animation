@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Valentine Adebisola ❤️</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="scene" id="scene">
+    <!-- sparkles / hearts -->
+<div class="sparkles" id="sparkles"></div>
+<div class="bloom" id="bloom"></div>
+
+
+<!-- music (user must tap to start on mobile) -->
+<audio id="bgm" loop preload="auto">
+  <source src="./assets/Ed_Sheran_Photograph_-_Ed_Sheran_Photograph_(mp3.pm).mp3" type="audio/mpeg" />
+</audio>
+
+<button class="music" id="musicBtn">Music: Off</button>
+<div class="tapToStart" id="tapToStart">Tap to Start 💗</div>
+
+    <div class="vignette"></div>
+
+    <!-- floating petals -->
+    <div class="petals" id="petals"></div>
+
+    <!-- characters -->
+    <img src="./assets/you.png" class="character you" alt="you" />
+    <img src="./assets/her.png" class="character her" alt="her" />
+
+    <!-- rose that moves from you to her -->
+    <img src="./assets/bouquet.png" class="bouquet" id="bouquet">
+
+    <!-- text -->
+    <div class="textWrap">
+      <h1 class="message" id="message">Happy Valentine’s Day, <br> Adebisola ❤️</h1>
+      <p class="sub" id="sub">You make my world softer, calmer, better.</p>
+    </div>
+
+    <button class="replay" id="replay">Replay</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
