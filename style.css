@@ -238,7 +238,7 @@ body{
 
    /* pull characters up */
   .character{
-    bottom: 40px; /* was near 0 or negative; this lifts them */
+    bottom: 60px; /* was near 0 or negative; this lifts them */
   }
 
   /* bring text down slightly (optional, but helps) */
